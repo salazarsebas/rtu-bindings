@@ -25,9 +25,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Acachete-Labs/rtu-bindings.git"
+    "url": "git+https://github.com/salazarsebas/rtu-bindings.git"
   },
-  "homepage": "https://github.com/Acachete-Labs/rtu-bindings/tree/main/cross_contract/contract_a",
+  "homepage": "https://github.com/salazarsebas/rtu-bindings/tree/main/cross_contract/contract_a",
   "publishConfig": {
     "access": "public"
   }

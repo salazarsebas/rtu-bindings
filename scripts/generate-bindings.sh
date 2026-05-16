@@ -20,7 +20,7 @@ BINDINGS_DIR="bindings"
 CONTRACTS_FILE="testnet-contracts.json"
 PACKAGE_SCOPE="@rtu-bindings"
 PACKAGE_VERSION="${PACKAGE_VERSION:-0.1.0}"
-REPO_URL="git+https://github.com/Acachete-Labs/rtu-bindings.git"
+REPO_URL="git+https://github.com/salazarsebas/rtu-bindings.git"
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$REPO_ROOT"
@@ -59,7 +59,7 @@ patch_package_json() {
     --arg ver     "$PACKAGE_VERSION" \
     --arg desc    "$description" \
     --arg repo    "$REPO_URL" \
-    --arg hmpg    "https://github.com/Acachete-Labs/rtu-bindings/tree/main/${contract_dir}" \
+    --arg hmpg    "https://github.com/salazarsebas/rtu-bindings/tree/main/${contract_dir}" \
     '.name        = $name
      | .version   = $ver
      | .description = $desc
