@@ -1,0 +1,103 @@
+name: Publish Bindings to npm
+
+# Publishes the TypeScript binding packages from the bindings/ directory to npm.
+#
+# Prerequisites:
+#   1. Add NPM_TOKEN secret in GitHub: Settings → Secrets → Actions → New secret
+#   2. Run scripts/setup-local.sh locally, commit bindings/ and testnet-contracts.json, push.
+#
+# Required secret:
+#   NPM_TOKEN — npm token with publish access to the @rtu-bindings scope
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to publish (must match version in bindings/*/package.json)'
+        required: true
+        default: '0.1.0'
+      dry_run:
+        description: 'Dry run — build packages but do not publish to npm'
+        type: boolean
+        default: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify bindings directory exists
+        run: |
+          if [ ! -d "bindings" ] || [ -z "$(ls -A bindings 2>/dev/null)" ]; then
+            echo "ERROR: bindings/ directory is empty or missing."
+            echo "Run scripts/setup-local.sh locally, then commit and push bindings/."
+            exit 1
+          fi
+          echo "Found $(ls bindings/ | wc -l | tr -d ' ') packages in bindings/"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Publish all binding packages
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          TARGET_VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+
+          PUBLISHED=0
+          FAILED=0
+          SKIPPED=0
+
+          for pkg_dir in bindings/*/; do
+            [ -f "$pkg_dir/package.json" ] || continue
+
+            pkg_name=$(jq -r '.name'    "$pkg_dir/package.json")
+            pkg_ver=$(jq  -r '.version' "$pkg_dir/package.json")
+
+            # Warn if the version in package.json doesn't match the workflow input
+            if [ "$pkg_ver" != "$TARGET_VERSION" ]; then
+              echo "⚠  Version mismatch in $pkg_name: package.json says $pkg_ver, workflow input is $TARGET_VERSION"
+            fi
+
+            echo ""
+            echo "▶  $pkg_name@$pkg_ver"
+
+            publish_result=0
+            (
+              set -e
+              cd "$pkg_dir"
+              npm install --silent
+              npm run build --silent
+
+              if [ "$DRY_RUN" = "true" ]; then
+                npm publish --access public --dry-run
+              else
+                npm publish --access public
+              fi
+            ) || publish_result=$?
+
+            if [ "$publish_result" -eq 0 ]; then
+              echo "✓  Published $pkg_name@$pkg_ver"
+              PUBLISHED=$((PUBLISHED + 1))
+            else
+              echo "⚠  Failed to publish $pkg_name (exit $publish_result)"
+              FAILED=$((FAILED + 1))
+            fi
+          done
+
+          echo ""
+          echo "══════════════════════════════"
+          echo " Published: $PUBLISHED"
+          echo " Failed:    $FAILED"
+          if [ "$DRY_RUN" = "true" ]; then
+            echo " (dry run — nothing actually published)"
+          fi
+          echo "══════════════════════════════"
+
+          [ "$FAILED" -eq 0 ] || exit 1
