@@ -1,0 +1,26 @@
+[package]
+name = "asteroids"
+version = "0.0.0"
+edition = "2021"
+publish = false
+description = "Arcade asteroid shooter with entity-heavy movement and collisions"
+
+[lib]
+crate-type = ["lib", "cdylib"]
+doctest = false
+
+[dependencies]
+soroban-sdk = "25.1.0"
+cougr-core = "1.1.0"
+
+[dev-dependencies]
+soroban-sdk = { version = "25.1.0", features = ["testutils"] }
+
+[profile.release]
+opt-level = "z"
+overflow-checks = true
+lto = true
+codegen-units = 1
+panic = "abort"
+
+[workspace]

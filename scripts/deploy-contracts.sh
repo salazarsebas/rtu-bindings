@@ -88,17 +88,32 @@ deploy() {
 
   [ ${#constructor_args[@]} -gt 0 ] && cmd+=(-- "${constructor_args[@]}")
 
-  local contract_id
-  # Progress info goes to stderr (visible in terminal), contract ID to stdout (captured)
-  if contract_id=$("${cmd[@]}"); then
-    save_id "$alias" "$contract_id"
-    ok "$alias → $contract_id"
-    DEPLOYED=$((DEPLOYED + 1))
-  else
-    warn "Deploy failed for $alias (see error above)"
+  local contract_id attempt
+  local max_attempts=6
+
+  # Testnet RPC lags behind submitted transactions (stale account sequence,
+  # "wasm does not exist" right after a successful upload, submission
+  # timeouts). None of this reflects a real error in the contract or the
+  # deploy args, so retry every failure with backoff — the CLI itself skips
+  # re-uploading wasm that already landed, so retries are cheap.
+  for ((attempt = 1; attempt <= max_attempts; attempt++)); do
+    if contract_id=$("${cmd[@]}"); then
+      save_id "$alias" "$contract_id"
+      ok "$alias → $contract_id"
+      DEPLOYED=$((DEPLOYED + 1))
+      return 0
+    fi
+
+    if [ "$attempt" -lt "$max_attempts" ]; then
+      warn "$alias deploy failed (testnet RPC lag) — retrying in $((attempt * 5))s (attempt $attempt/$max_attempts)"
+      sleep $((attempt * 5))
+      continue
+    fi
+
+    warn "Deploy failed for $alias after $max_attempts attempts (see error above)"
     FAILED=$((FAILED + 1))
     return 1
-  fi
+  done
 }
 
 # ── setup ─────────────────────────────────────────────────────────────────────
@@ -229,6 +244,33 @@ deploy "rtu-privacy-pools"  "privacy-pools/contract" "privacy-pools" || true
 
 # multisig_1_of_n_account
 deploy "rtu-multisig-1-of-n" "multisig_1_of_n_account/contract"  || true
+
+# modular_account needs at least one delegate signer address at construction
+deploy "rtu-modular-account" "modular_account" -- \
+  --signers "[\"$SOURCE_ADDRESS\"]"                                                  || true
+
+# ── stage 5: Cougr example games (community contracts) ────────────────────────
+# Sourced from https://github.com/salazarsebas/Cougr — on-chain games built on
+# the cougr-core ECS framework. No constructor args; game state is initialised
+# via each contract's own init_game/init_* entrypoint after deployment.
+
+section "Stage 5 — Cougr example games"
+
+deploy "rtu-tic-tac-toe"        "tic_tac_toe"          || true
+deploy "rtu-connect-four"       "connect_four"         || true
+deploy "rtu-checkers"           "checkers"             || true
+deploy "rtu-chess"              "chess"                || true
+deploy "rtu-reversi"            "reversi"              || true
+deploy "rtu-battleship"         "battleship"           || true
+deploy "rtu-rock-paper-scissors" "rock_paper_scissors" || true
+deploy "rtu-minesweeper"        "minesweeper"          || true
+deploy "rtu-snake"              "snake"                || true
+deploy "rtu-tetris"             "tetris"               || true
+deploy "rtu-pong"               "pong"                 || true
+deploy "rtu-asteroids"          "asteroids"            || true
+deploy "rtu-memory-match"       "memory_match"         || true
+deploy "rtu-murdoku"            "murdoku"              || true
+deploy "rtu-hidden-hand"        "hidden_hand"          || true
 
 # ── save results ──────────────────────────────────────────────────────────────
 

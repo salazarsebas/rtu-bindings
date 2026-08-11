@@ -1,0 +1,6 @@
+/target
+test_snapshots/
+*.wasm
+
+# Added by hygiene enforcement (#225)
+target/

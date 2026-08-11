@@ -8,9 +8,13 @@ TypeScript SDKs for the Stellar example smart contracts.
 - Ready to install in apps, scripts, tests, and demos.
 - Useful for faster experiments without building, deploying, or generating bindings from scratch.
 
-> **Note:** The smart contracts come entirely from [stellar/soroban-examples](https://github.com/stellar/soroban-examples) without any modifications. They were deployed as-is on testnet and TypeScript bindings were generated from the deployed contracts and published as npm packages.
+> **Note:** The core example contracts come from [stellar/soroban-examples](https://github.com/stellar/soroban-examples) without any modifications. They were deployed as-is on testnet and TypeScript bindings were generated from the deployed contracts and published as npm packages.
+
+> **Cougr example games:** `tic_tac_toe`, `connect_four`, `checkers`, `chess`, `reversi`, `battleship`, `rock_paper_scissors`, `minesweeper`, `snake`, `tetris`, `pong`, `asteroids`, `memory_match`, `murdoku`, and `hidden_hand` are a curated selection of on-chain games from [salazarsebas/Cougr](https://github.com/salazarsebas/Cougr), an ECS game engine for Stellar Soroban, unmodified from their source and licensed MIT OR Apache-2.0 (see [LICENSE-cougr](./LICENSE-cougr)). `murdoku` and `hidden_hand` showcase Cougr's on-chain hidden-state/ZK capabilities.
 
 ## Published SDKs
+
+### Stellar example contracts
 
 - [@rtu-bindings/soroban-account](https://www.npmjs.com/package/@rtu-bindings/soroban-account)
 - [@rtu-bindings/soroban-alloc](https://www.npmjs.com/package/@rtu-bindings/soroban-alloc)
@@ -38,6 +42,7 @@ TypeScript SDKs for the Stellar example smart contracts.
 - [@rtu-bindings/soroban-logging](https://www.npmjs.com/package/@rtu-bindings/soroban-logging)
 - [@rtu-bindings/soroban-merkle-distribution](https://www.npmjs.com/package/@rtu-bindings/soroban-merkle-distribution)
 - [@rtu-bindings/soroban-mint-lock](https://www.npmjs.com/package/@rtu-bindings/soroban-mint-lock)
+- [@rtu-bindings/soroban-modular-account](https://www.npmjs.com/package/@rtu-bindings/soroban-modular-account)
 - [@rtu-bindings/soroban-multisig-1-of-n](https://www.npmjs.com/package/@rtu-bindings/soroban-multisig-1-of-n)
 - [@rtu-bindings/soroban-other-custom-types](https://www.npmjs.com/package/@rtu-bindings/soroban-other-custom-types)
 - [@rtu-bindings/soroban-pause](https://www.npmjs.com/package/@rtu-bindings/soroban-pause)
@@ -51,6 +56,24 @@ TypeScript SDKs for the Stellar example smart contracts.
 - [@rtu-bindings/soroban-upgradeable-old](https://www.npmjs.com/package/@rtu-bindings/soroban-upgradeable-old)
 - [@rtu-bindings/soroban-workspace-contract-a](https://www.npmjs.com/package/@rtu-bindings/soroban-workspace-contract-a)
 - [@rtu-bindings/soroban-workspace-contract-b](https://www.npmjs.com/package/@rtu-bindings/soroban-workspace-contract-b)
+
+### Cougr example games
+
+- [@rtu-bindings/soroban-asteroids](https://www.npmjs.com/package/@rtu-bindings/soroban-asteroids)
+- [@rtu-bindings/soroban-battleship](https://www.npmjs.com/package/@rtu-bindings/soroban-battleship)
+- [@rtu-bindings/soroban-checkers](https://www.npmjs.com/package/@rtu-bindings/soroban-checkers)
+- [@rtu-bindings/soroban-chess](https://www.npmjs.com/package/@rtu-bindings/soroban-chess)
+- [@rtu-bindings/soroban-connect-four](https://www.npmjs.com/package/@rtu-bindings/soroban-connect-four)
+- [@rtu-bindings/soroban-hidden-hand](https://www.npmjs.com/package/@rtu-bindings/soroban-hidden-hand)
+- [@rtu-bindings/soroban-memory-match](https://www.npmjs.com/package/@rtu-bindings/soroban-memory-match)
+- [@rtu-bindings/soroban-minesweeper](https://www.npmjs.com/package/@rtu-bindings/soroban-minesweeper)
+- [@rtu-bindings/soroban-murdoku](https://www.npmjs.com/package/@rtu-bindings/soroban-murdoku)
+- [@rtu-bindings/soroban-pong](https://www.npmjs.com/package/@rtu-bindings/soroban-pong)
+- [@rtu-bindings/soroban-reversi](https://www.npmjs.com/package/@rtu-bindings/soroban-reversi)
+- [@rtu-bindings/soroban-rock-paper-scissors](https://www.npmjs.com/package/@rtu-bindings/soroban-rock-paper-scissors)
+- [@rtu-bindings/soroban-snake](https://www.npmjs.com/package/@rtu-bindings/soroban-snake)
+- [@rtu-bindings/soroban-tetris](https://www.npmjs.com/package/@rtu-bindings/soroban-tetris)
+- [@rtu-bindings/soroban-tic-tac-toe](https://www.npmjs.com/package/@rtu-bindings/soroban-tic-tac-toe)
 
 ## Install
 

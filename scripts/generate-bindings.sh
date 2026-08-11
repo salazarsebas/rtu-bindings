@@ -283,6 +283,72 @@ generate "rtu-multisig-1-of-n" "soroban-multisig-1-of-n" \
   "TypeScript bindings for the Soroban 1-of-N Multisig Account contract" \
   "multisig_1_of_n_account/contract"
 
+generate "rtu-modular-account" "soroban-modular-account" \
+  "TypeScript bindings for the Soroban Modular Account contract (CAP-71 auth delegation)" \
+  "modular_account"
+
+section "Stage 5 — Cougr example games"
+
+generate "rtu-tic-tac-toe" "soroban-tic-tac-toe" \
+  "TypeScript bindings for the Cougr Tic Tac Toe on-chain game contract" \
+  "tic_tac_toe"
+
+generate "rtu-connect-four" "soroban-connect-four" \
+  "TypeScript bindings for the Cougr Connect Four on-chain game contract" \
+  "connect_four"
+
+generate "rtu-checkers" "soroban-checkers" \
+  "TypeScript bindings for the Cougr Checkers on-chain game contract" \
+  "checkers"
+
+generate "rtu-chess" "soroban-chess" \
+  "TypeScript bindings for the Cougr Chess on-chain game contract" \
+  "chess"
+
+generate "rtu-reversi" "soroban-reversi" \
+  "TypeScript bindings for the Cougr Reversi on-chain game contract" \
+  "reversi"
+
+generate "rtu-battleship" "soroban-battleship" \
+  "TypeScript bindings for the Cougr Battleship on-chain game contract" \
+  "battleship"
+
+generate "rtu-rock-paper-scissors" "soroban-rock-paper-scissors" \
+  "TypeScript bindings for the Cougr Rock Paper Scissors on-chain game contract" \
+  "rock_paper_scissors"
+
+generate "rtu-minesweeper" "soroban-minesweeper" \
+  "TypeScript bindings for the Cougr Minesweeper on-chain game contract" \
+  "minesweeper"
+
+generate "rtu-snake" "soroban-snake" \
+  "TypeScript bindings for the Cougr Snake on-chain game contract" \
+  "snake"
+
+generate "rtu-tetris" "soroban-tetris" \
+  "TypeScript bindings for the Cougr Tetris on-chain game contract" \
+  "tetris"
+
+generate "rtu-pong" "soroban-pong" \
+  "TypeScript bindings for the Cougr Pong on-chain game contract" \
+  "pong"
+
+generate "rtu-asteroids" "soroban-asteroids" \
+  "TypeScript bindings for the Cougr Asteroids on-chain game contract" \
+  "asteroids"
+
+generate "rtu-memory-match" "soroban-memory-match" \
+  "TypeScript bindings for the Cougr Memory Match on-chain game contract" \
+  "memory_match"
+
+generate "rtu-murdoku" "soroban-murdoku" \
+  "TypeScript bindings for the Cougr Murdoku on-chain puzzle contract (ZK hidden state)" \
+  "murdoku"
+
+generate "rtu-hidden-hand" "soroban-hidden-hand" \
+  "TypeScript bindings for the Cougr Hidden Hand on-chain card game contract (ZK hidden state)" \
+  "hidden_hand"
+
 # ── summary ───────────────────────────────────────────────────────────────────
 
 section "Results"
