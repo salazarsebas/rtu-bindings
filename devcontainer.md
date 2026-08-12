@@ -168,9 +168,9 @@ load up quickly and be responsive.
 
 ## Devcontainer GH Actions
 
-`validate-devcontainer-json.yml`: Validates Devcontainer JSON Schema
-
-`build-and-test-devcontainer.yml` Validates bash scripts and builds devcontainer with CLI
+> **Note:** This fork does not run `validate-devcontainer-json.yml` or
+> `build-and-test-devcontainer.yml` — see [CLAUDE.md](./CLAUDE.md) for why.
+> The commands below are preserved from upstream for local use only.
 
 **Run GH Actions Locally to test build**
 
